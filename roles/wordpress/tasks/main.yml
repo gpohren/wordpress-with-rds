@@ -1,0 +1,8 @@
+- name: Copy docker-compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /home/ubuntu/docker-compose.yml
+    mode: 0755
+
+- name: Run docker-compose
+  shell: docker-compose -f /home/ubuntu/docker-compose.yml up -d

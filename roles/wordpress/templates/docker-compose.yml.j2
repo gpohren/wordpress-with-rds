@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: mysql-instance.123456789012.us-east-1.rds.amazonaws.com
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: 12qwaszx
+      WORDPRESS_DB_NAME: wpdb
+    volumes:
+      - /data/wp:/var/www/html

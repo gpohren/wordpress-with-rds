@@ -1,0 +1,48 @@
+- name: Install nginx and certbot
+  apt:
+    name: "{{ packages }}"
+    update_cache: true
+    state: present
+  vars:
+    packages:
+      - nginx
+      - certbot
+      - python3-certbot-nginx
+
+- name: Put nginx domain.conf
+  template:
+    src: domain.conf.j2
+    dest: /etc/nginx/sites-available/domain.conf
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: Create symbolic link
+  file:
+    src: /etc/nginx/sites-available/domain.conf
+    dest: /etc/nginx/sites-enabled/domain.conf
+    state: link
+
+- name: Blank html default
+  shell:
+    cmd: "echo > index.nginx-debian.html"
+    chdir: /var/www/html/
+
+- name: Reload nginx
+  service:
+    name: nginx
+    state: reloaded
+
+- name: Create certificate
+  shell: certbot --nginx --agree-tos --no-eff-email --redirect --keep-until-expiring -d {{ domain_name }} -m {{ certbot_email }}
+
+- name: Create cronjob
+  cron: 
+    name: Renew Let's Encrypt
+    minute: "0"
+    hour: "12"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    job: /usr/bin/certbot renew --quiet
+    state: present

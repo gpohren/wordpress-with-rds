@@ -1,0 +1,6 @@
+all:
+  vars:
+    domain_name: wp.example.com
+    certbot_email: example@email.com
+  hosts:
+    3.16.70.78:
