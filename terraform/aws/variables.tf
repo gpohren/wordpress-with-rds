@@ -9,8 +9,8 @@ variable "aws_profile" {
 }
 
 variable "ami" {
-  description = "Ubuntu 20.04"
-  default     = "ami-0c4f7023847b90238"
+  description = "Ubuntu, 20.04 LTS"
+  default     = "ami-0261755bbcb8c4a84"
 }
 
 variable "instance_micro" {
