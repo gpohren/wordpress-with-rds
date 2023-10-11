@@ -21,7 +21,7 @@ resource "aws_db_instance" "wp_db" {
   allocated_storage      = 10
   identifier             = "mysql-instance"
   engine                 = "mysql"
-  engine_version         = "5.7.43"
+  engine_version         = "8.0.34"
   instance_class         = "db.t2.micro"
   db_name                = "wpdb"
   username               = "admin"
